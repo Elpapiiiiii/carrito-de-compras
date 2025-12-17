@@ -1,7 +1,8 @@
 # El Papi Shop 🛒
 
-Proyecto de e-commerce realizado como **Segunda Pre-entrega de React** (Coderhouse).  
-La app está desarrollada con **React + Vite** e implementa navegación con **React Router DOM** y manejo de asincronía mediante promesas simuladas.
+Proyecto de e-commerce desarrollado como **Proyecto Final del curso de React en Coderhouse**.
+
+La aplicación está construida con **React + Vite**, implementa navegación SPA con **React Router DOM**, manejo de estado global mediante **Context**, consumo de datos desde **Firebase Firestore** y se encuentra **deployada en GitHub Pages**.
 
 ---
 
@@ -10,80 +11,99 @@ La app está desarrollada con **React + Vite** e implementa navegación con **Re
 - React
 - Vite
 - React Router DOM
+- Firebase (Firestore)
 - JavaScript (ES6+)
-- Bootstrap 5 (CDN) para estilos básicos
+- Bootstrap 5 (CDN)
+- Git & GitHub
+
+---
+
+## 🌍 Deploy
+
+👉 https://elpapiiiii.github.io/carrito-de-compras/
 
 ---
 
 ## 📂 Estructura principal
 
-- `src/main.jsx`  
-  Configura el `BrowserRouter` y renderiza el componente `<App />`.
-
-- `src/App.jsx`  
-  Define las rutas de la aplicación:
-  - `/` → listado de productos
-  - `/category/:categoryId` → productos filtrados por categoría
-  - `/item/:itemId` → detalle de producto
-  - `*` → página de error (404)
-
-- `src/components/Navbar.jsx`  
-  Barra de navegación con:
-  - Logo que redirige al home
-  - Links a categorías (`Notebooks`, `Periféricos`, `Celulares`)
-  - Buscador de productos
-  - `CartWidget` con icono de carrito
-
-- `src/components/ItemListContainer.jsx`  
-  - Consume una **promesa** (`getProducts`) dentro de un `useEffect`.
-  - Usa `useParams` para leer la categoría de la URL.
-  - Filtra por categoría y por texto de búsqueda.
-  - Pasa el listado a `ItemList`.
-
-- `src/components/ItemList.jsx`  
-  - Recorre el array de productos con `.map()`.
-  - Renderiza un componente `Item` por cada producto.
-  - Usa `key` única (`product.id`).
-
-- `src/components/Item.jsx`  
-  - Muestra la info básica del producto en una card.
-  - Incluye un botón/enlace **"Ver detalle"** que navega a `/item/:id`.
-
-- `src/components/ItemDetailContainer.jsx`  
-  - Usa `useParams` para leer el `id` del producto.
-  - Maneja una promesa (`getProductById`) dentro de un `useEffect`.
-  - Guarda la respuesta en un estado y se lo pasa a `ItemDetail`.
-
-- `src/components/ItemDetail.jsx`  
-  - Muestra el detalle del producto (imagen, descripción, precio, categoría, stock).
-  - Incluye el componente `ItemCount` y un botón **"Agregar al carrito"** (vista preliminar).
-
-- `src/components/ItemCount.jsx`  
-  - Contador que:
-    - No baja de 1.
-    - No supera el stock disponible.
-  - Implementado con `useState`.
-
-- `src/data/products.js`  
-  - Array de productos de ejemplo.
-  - Dos funciones que simulan asincronía:
-    - `getProducts()` → devuelve todo el listado.
-    - `getProductById(id)` → devuelve un producto por id.
+### `src/main.jsx`
+Configura el **HashRouter** (compatible con GitHub Pages) y renderiza el componente `<App />`, envolviendo la aplicación con el `CartProvider`.
 
 ---
 
-## 🧠 Funcionalidades solicitadas en la pre-entrega 2
+### `src/App.jsx`
+Define las rutas principales de la aplicación:
 
-- Configuración de **React Router DOM** con rutas dinámicas.
-- Navegación desde el **Navbar**:
-  - Logo → Home
-  - Categorías → filtrado por categoría.
-- Manejo de **promesas** utilizando `useEffect` y estados.
-- Uso de `useParams` para:
-  - Filtrar productos por categoría.
-  - Obtener el id del producto para el detalle.
-- Renderizado de listas con `.map()` y uso de `key` única.
-- Componente `ItemDetail` que recibe los datos desde su contenedor.
-- Componente opcional `ItemCount` funcionando correctamente.
+- `/` → listado de productos
+- `/category/:categoryId` → productos filtrados por categoría
+- `/item/:itemId` → detalle del producto
+- `/cart` → carrito de compras
+- `/checkout` → formulario de compra
+- `*` → página de error (404)
 
 ---
+
+### `src/components/Navbar.jsx`
+Barra de navegación que incluye:
+- Logo con acceso al home
+- Navegación por categorías
+- Buscador de productos
+- `CartWidget` con cantidad total de productos
+
+---
+
+### `src/components/ItemListContainer.jsx`
+- Obtiene los productos desde **Firestore**
+- Maneja asincronía con `useEffect`
+- Filtra por categoría y búsqueda
+- Pasa los datos al componente `ItemList`
+
+---
+
+### `src/components/ItemList.jsx`
+- Renderiza el listado de productos usando `.map()`
+- Utiliza `key` única por producto
+
+---
+
+### `src/components/ItemDetailContainer.jsx`
+- Obtiene el producto por `id` desde Firestore
+- Maneja estados de carga
+- Pasa la información a `ItemDetail`
+
+---
+
+### `src/components/ItemDetail.jsx`
+- Muestra información detallada del producto
+- Integra el componente `ItemCount`
+- Permite agregar productos al carrito
+
+---
+
+### `src/components/ItemCount.jsx`
+Contador de unidades que:
+- No permite valores menores a 1
+- Respeta el stock disponible
+- Está implementado con `useState`
+
+---
+
+### `src/context/CartContext.jsx`
+- Maneja el estado global del carrito
+- Permite agregar, eliminar y vaciar productos
+- Calcula cantidades totales y precios
+
+---
+
+## 🛒 Funcionalidades principales
+
+- Listado y detalle de productos
+- Filtrado por categorías
+- Carrito de compras con Context
+- Control de stock
+- Checkout con generación de orden en Firestore
+- Navegación SPA sin recarga
+- Deploy en hosting gratuito
+
+---
+
