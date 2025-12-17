@@ -20,7 +20,7 @@ La aplicación está construida con **React + Vite**, implementa navegación SPA
 
 ## 🌍 Deploy
 
-👉 https://elpapiiiii.github.io/carrito-de-compras/
+👉 https://elpapiiiiii.github.io/carrito-de-compras/
 
 ---
 
