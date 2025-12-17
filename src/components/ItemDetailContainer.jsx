@@ -1,27 +1,43 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductById } from "../data/products.js";
 import ItemDetail from "./ItemDetail.jsx";
+import { getProductByIdFS } from "../firebase/firestoreServices";
 
 const ItemDetailContainer = () => {
   const { itemId } = useParams();
+
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    async function loadProduct() {
+      try {
+        setLoading(true);
+        setError(null);
 
-    getProductById(itemId)
-      .then((res) => setProduct(res))
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
+        const data = await getProductByIdFS(itemId);
+
+        if (!data) {
+          setError("Producto no encontrado");
+          setProduct(null);
+          return;
+        }
+
+        setProduct(data);
+      } catch (err) {
+        console.error(err);
+        setError("Error cargando producto");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProduct();
   }, [itemId]);
 
-  if (loading) return <p>Cargando detalle...</p>;
-  if (error) return <p>Ocurrió un error: {error}</p>;
-  if (!product) return <p>No se encontró el producto.</p>;
+  if (loading) return <p>Cargando producto...</p>;
+  if (error) return <p>{error}</p>;
 
   return <ItemDetail product={product} />;
 };

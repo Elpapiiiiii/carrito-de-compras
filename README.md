@@ -1,5 +1,6 @@
 # El Papi Shop 🛒
 
+<<<<<<< HEAD
 Proyecto de e-commerce desarrollado como **Proyecto Final del curso de React en Coderhouse**.
 
 La aplicación está construida con **React + Vite**, implementa navegación SPA con **React Router DOM**, manejo de estado global mediante **Context**, consumo de datos desde **Firebase Firestore** y se encuentra **deployada en GitHub Pages**.
@@ -107,3 +108,30 @@ Contador de unidades que:
 
 ---
 
+=======
+E-commerce desarrollado como Single Page Application (SPA) utilizando React.
+
+## 🚀 Tecnologías utilizadas
+- React
+- React Router DOM
+- Context API
+- Firebase (Firestore)
+- Bootstrap
+
+## 🛍️ Funcionalidades
+- Listado dinámico de productos desde Firestore
+- Filtrado por categorías
+- Vista de detalle de producto
+- Carrito de compras con Context
+- Checkout con generación de órdenes en Firestore
+- Renderizado condicional (loader, carrito vacío, sin stock)
+
+## 🔥 Firebase
+- Colección `products` para productos
+- Colección `orders` para órdenes de compra
+
+## ▶️ Instalación
+```bash
+npm install
+npm run dev
+>>>>>>> 5972369 (proyecto final react coder)

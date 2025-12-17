@@ -1,52 +1,60 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProducts } from "../data/products.js";
 import ItemList from "./ItemList.jsx";
+import Loader from "./Loader.jsx";
+import { getProductsFS } from "../firebase/firestoreServices";
 
-const ItemListContainer = ({ greeting, search }) => {
+export default function ItemListContainer({ greeting, search }) {
   const { categoryId } = useParams();
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    let isMounted = true;
 
-    getProducts()
-      .then((res) => {
-        let filtered = res;
+    const load = async () => {
+      setLoading(true);
+      setErrorMsg("");
 
-        // Filtrar por categoría si existe
-        if (categoryId) {
-          filtered = filtered.filter(
-            (prod) => prod.category === categoryId
-          );
-        }
+      try {
+        const data = await getProductsFS(categoryId);
+        if (!isMounted) return;
 
-        // Filtrar por búsqueda si hay texto
-        if (search && search.trim() !== "") {
-          filtered = filtered.filter((prod) =>
-            prod.title.toLowerCase().includes(search.toLowerCase())
-          );
-        }
+        const s = (search || "").toLowerCase().trim();
+
+        const filtered = s
+          ? data.filter((p) =>
+              `${p.title} ${p.description || ""}`.toLowerCase().includes(s)
+            )
+          : data;
 
         setItems(filtered);
-      })
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
+      } catch (error) {
+        console.error(error);
+        if (!isMounted) return;
+        setErrorMsg("Hubo un error cargando los productos.");
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    load();
+
+    return () => {
+      isMounted = false;
+    };
   }, [categoryId, search]);
 
-  if (loading) return <p>Cargando productos...</p>;
-  if (error) return <p>Ocurrió un error: {error}</p>;
-  if (!items.length) return <p>No se encontraron productos.</p>;
+  if (loading) return <Loader />;
+  if (errorMsg) return <p>{errorMsg}</p>;
+  if (items.length === 0) return <p>No se encontraron productos.</p>;
 
   return (
     <div>
-      <h1 className="mb-4">{greeting}</h1>
+      {greeting && <h2 className="mb-3">{greeting}</h2>}
       <ItemList items={items} />
     </div>
   );
-};
-
-export default ItemListContainer;
+}

@@ -2,10 +2,10 @@ import Item from "./Item.jsx";
 
 const ItemList = ({ items }) => {
   return (
-    <div className="row g-4">
-      {items.map((product) => (
-        <div className="col-sm-6 col-md-4 col-lg-3" key={product.id}>
-          <Item product={product} />
+    <div className="row g-3">
+      {items.map((prod) => (
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={prod.id}>
+          <Item item={prod} />
         </div>
       ))}
     </div>

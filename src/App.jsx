@@ -1,6 +1,8 @@
 import Navbar from "./components/Navbar.jsx";
 import ItemListContainer from "./components/ItemListContainer.jsx";
 import ItemDetailContainer from "./components/ItemDetailContainer.jsx";
+import Cart from "./components/Cart.jsx";
+import Checkout from "./components/Checkout.jsx";
 import Error from "./components/Error.jsx";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
@@ -10,12 +12,10 @@ function App() {
 
   return (
     <>
-      {/* Le pasamos setSearch al Navbar */}
       <Navbar setSearch={setSearch} />
 
       <main className="container my-4">
         <Routes>
-          {/* HOME */}
           <Route
             path="/"
             element={
@@ -26,7 +26,6 @@ function App() {
             }
           />
 
-          {/* CATEGORÍAS */}
           <Route
             path="/category/:categoryId"
             element={
@@ -37,10 +36,13 @@ function App() {
             }
           />
 
-          {/* DETALLE PRODUCTO */}
           <Route path="/item/:itemId" element={<ItemDetailContainer />} />
 
-          {/* RUTA NO ENCONTRADA */}
+          <Route path="/cart" element={<Cart />} />
+
+          {/* ✅ ACÁ */}
+          <Route path="/checkout" element={<Checkout />} />
+
           <Route path="*" element={<Error />} />
         </Routes>
       </main>

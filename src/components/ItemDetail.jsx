@@ -1,7 +1,18 @@
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 import ItemCount from "./ItemCount.jsx";
 
 const ItemDetail = ({ product }) => {
   const { title, description, price, image, stock, category } = product;
+
+  const { addItem } = useContext(CartContext);
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = (qty) => {
+    addItem(product, qty);
+    setAdded(true);
+  };
 
   return (
     <div className="card shadow-sm p-3">
@@ -24,13 +35,20 @@ const ItemDetail = ({ product }) => {
             <p className="fs-3 fw-bold mt-3 mb-1">$ {price}</p>
             <p className="text-success mb-3">Stock disponible: {stock}</p>
 
-            {/* Contador */}
-            <ItemCount stock={stock} initial={1} />
-
-            {/* Botón para agregar */}
-            <button className="btn btn-primary mt-3 w-100">
-              Agregar al carrito
-            </button>
+            {stock <= 0 ? (
+              <p className="text-danger fw-bold">Producto sin stock</p>
+            ) : added ? (
+              <div className="d-flex gap-2">
+                <Link to="/cart" className="btn btn-success w-100">
+                  Ir al carrito
+                </Link>
+                <Link to="/" className="btn btn-outline-secondary w-100">
+                  Seguir comprando
+                </Link>
+              </div>
+            ) : (
+              <ItemCount stock={stock} initial={1} onAdd={handleAdd} />
+            )}
           </div>
         </div>
       </div>
