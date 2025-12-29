@@ -1,4 +1,4 @@
-import { db } from "./firebaseConfig";
+import { db } from "./firebaseConfig.js";
 import {
   collection,
   getDocs,
@@ -22,7 +22,6 @@ export const getProductsFS = async (categoryId) => {
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 };
 
-
 // ✅ Traer producto por ID
 export const getProductByIdFS = async (itemId) => {
   const ref = doc(db, "products", itemId);
@@ -32,10 +31,14 @@ export const getProductByIdFS = async (itemId) => {
   return { id: snap.id, ...snap.data() };
 };
 
-// ✅ Crear orden en Firestore
+// ✅ Crear orden en Firestore (orders)
 export const createOrderFS = async (orderData) => {
   const ordersRef = collection(db, "orders");
-  const order = { ...orderData, date: Timestamp.fromDate(new Date()) };
+
+  const order = {
+    ...orderData,
+    date: Timestamp.fromDate(new Date()),
+  };
 
   const docRef = await addDoc(ordersRef, order);
   return docRef.id;

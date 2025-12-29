@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
 import ItemCount from "./ItemCount.jsx";
+import { useContext, useState } from "react";
+import { CartContext } from "../context/CartContext.jsx";
+import { Link } from "react-router-dom";
 
 const ItemDetail = ({ product }) => {
   const { title, description, price, image, stock, category } = product;
@@ -35,19 +35,12 @@ const ItemDetail = ({ product }) => {
             <p className="fs-3 fw-bold mt-3 mb-1">$ {price}</p>
             <p className="text-success mb-3">Stock disponible: {stock}</p>
 
-            {stock <= 0 ? (
-              <p className="text-danger fw-bold">Producto sin stock</p>
-            ) : added ? (
-              <div className="d-flex gap-2">
-                <Link to="/cart" className="btn btn-success w-100">
-                  Ir al carrito
-                </Link>
-                <Link to="/" className="btn btn-outline-secondary w-100">
-                  Seguir comprando
-                </Link>
-              </div>
-            ) : (
+            {!added ? (
               <ItemCount stock={stock} initial={1} onAdd={handleAdd} />
+            ) : (
+              <Link to="/cart" className="btn btn-success w-100 mt-3">
+                Ir al carrito
+              </Link>
             )}
           </div>
         </div>

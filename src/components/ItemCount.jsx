@@ -1,18 +1,13 @@
 import { useState } from "react";
 
-const ItemCount = ({ stock = 0, initial = 1, onAdd }) => {
+const ItemCount = ({ stock = 5, initial = 1, onAdd }) => {
   const [count, setCount] = useState(initial);
 
-  const restar = () => {
-    if (count > 1) setCount(count - 1);
-  };
-
-  const sumar = () => {
-    if (count < stock) setCount(count + 1);
-  };
+  const sumar = () => count < stock && setCount(count + 1);
+  const restar = () => count > 1 && setCount(count - 1);
 
   return (
-    <div className="d-flex flex-column gap-2">
+    <div className="mt-3">
       <div className="d-flex gap-3 align-items-center">
         <button className="btn btn-danger" onClick={restar}>
           -
@@ -26,9 +21,9 @@ const ItemCount = ({ stock = 0, initial = 1, onAdd }) => {
       </div>
 
       <button
-        className="btn btn-primary"
+        className="btn btn-primary mt-3 w-100"
+        onClick={() => onAdd?.(count)}
         disabled={stock <= 0}
-        onClick={() => onAdd(count)}
       >
         Agregar al carrito
       </button>

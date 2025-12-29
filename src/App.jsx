@@ -1,8 +1,8 @@
 import Navbar from "./components/Navbar.jsx";
 import ItemListContainer from "./components/ItemListContainer.jsx";
 import ItemDetailContainer from "./components/ItemDetailContainer.jsx";
-import Cart from "./components/Cart.jsx";
-import Checkout from "./components/Checkout.jsx";
+import Cart from "./Pages/Cart.jsx";
+import Checkout from "./Pages/Checkout.jsx";
 import Error from "./components/Error.jsx";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
@@ -38,9 +38,8 @@ function App() {
 
           <Route path="/item/:itemId" element={<ItemDetailContainer />} />
 
+          {/* ✅ PÁGINAS */}
           <Route path="/cart" element={<Cart />} />
-
-          {/* ✅ ACÁ */}
           <Route path="/checkout" element={<Checkout />} />
 
           <Route path="*" element={<Error />} />

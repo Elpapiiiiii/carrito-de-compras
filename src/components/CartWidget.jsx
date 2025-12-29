@@ -1,21 +1,18 @@
+import { FaShoppingCart } from "react-icons/fa";
+import "../css/Navbar.css";
 import { useContext } from "react";
+import { CartContext } from "../context/CartContext.jsx";
 import { Link } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
 
-const CartWidget = () => {
-  const { getTotalUnits } = useContext(CartContext);
-  const totalUnits = getTotalUnits();
+function CartWidget() {
+  const { totalQuantity } = useContext(CartContext);
 
   return (
-    <Link to="/cart" className="position-relative text-decoration-none">
-      🛒
-      {totalUnits > 0 && (
-        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {totalUnits}
-        </span>
-      )}
+    <Link to="/cart" className="cartwidget text-decoration-none">
+      <FaShoppingCart className="cartwidget__icon" />
+      <span className="cartwidget__badge">{totalQuantity}</span>
     </Link>
   );
-};
+}
 
 export default CartWidget;

@@ -1,15 +1,18 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+// 🔥 Configuración de Firebase (keys públicas, OK para frontend)
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FB_API_KEY,
-  authDomain: import.meta.env.VITE_FB_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FB_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FB_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FB_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FB_APP_ID,
+  apiKey: "AIzaSyC-paxjmWEik38CwuohF1e60ayKMOx4RCo",
+  authDomain: "papi-prime.firebaseapp.com",
+  projectId: "papi-prime",
+  storageBucket: "papi-prime.firebasestorage.app",
+  messagingSenderId: "583201653064",
+  appId: "1:583201653064:web:f833374224189aa316737d",
 };
 
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
+
+// Exportar Firestore
 export const db = getFirestore(app);
-console.log("VITE PROJECT ID:", import.meta.env.VITE_FB_PROJECT_ID);
