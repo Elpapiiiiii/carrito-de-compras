@@ -1,9 +1,8 @@
 # El Papi Shop 🛒
 
-<<<<<<< HEAD
 Proyecto de e-commerce desarrollado como **Proyecto Final del curso de React en Coderhouse**.
 
-La aplicación está construida con **React + Vite**, implementa navegación SPA con **React Router DOM**, manejo de estado global mediante **Context**, consumo de datos desde **Firebase Firestore** y se encuentra **deployada en GitHub Pages**.
+La aplicación está construida con **React + Vite**, implementa navegación SPA con **React Router DOM**, manejo de estado global mediante **Context API**, consumo de datos desde **Firebase Firestore** y se encuentra **deployada en GitHub Pages**.
 
 ---
 
@@ -12,6 +11,7 @@ La aplicación está construida con **React + Vite**, implementa navegación SPA
 - React
 - Vite
 - React Router DOM
+- Context API
 - Firebase (Firestore)
 - JavaScript (ES6+)
 - Bootstrap 5 (CDN)
@@ -22,6 +22,38 @@ La aplicación está construida con **React + Vite**, implementa navegación SPA
 ## 🌍 Deploy
 
 👉 https://elpapiiiiii.github.io/carrito-de-compras/
+
+⚠️ **Nota:**  
+La aplicación utiliza **HashRouter** para compatibilidad con GitHub Pages.  
+Las rutas se acceden con `#/` (ej: `#/cart`, `#/checkout`).
+
+---
+
+## 🛍️ Funcionalidades principales
+
+- Listado dinámico de productos desde Firestore
+- Filtrado por categorías
+- Búsqueda de productos
+- Vista de detalle de producto
+- Carrito de compras con Context API
+- Control de stock
+- Checkout con generación de órdenes en Firestore
+- Renderizado condicional (loader, carrito vacío, sin stock)
+- Navegación SPA sin recarga
+- Deploy en hosting gratuito (GitHub Pages)
+
+---
+
+## 🔥 Firebase
+
+- Colección **products** → productos
+- Colección **orders** → órdenes de compra generadas en el checkout
+
+Cada orden guarda:
+- Datos del comprador
+- Items comprados
+- Total
+- Fecha de creación
 
 ---
 
@@ -61,31 +93,10 @@ Barra de navegación que incluye:
 
 ---
 
-### `src/components/ItemList.jsx`
-- Renderiza el listado de productos usando `.map()`
-- Utiliza `key` única por producto
-
----
-
 ### `src/components/ItemDetailContainer.jsx`
 - Obtiene el producto por `id` desde Firestore
 - Maneja estados de carga
 - Pasa la información a `ItemDetail`
-
----
-
-### `src/components/ItemDetail.jsx`
-- Muestra información detallada del producto
-- Integra el componente `ItemCount`
-- Permite agregar productos al carrito
-
----
-
-### `src/components/ItemCount.jsx`
-Contador de unidades que:
-- No permite valores menores a 1
-- Respeta el stock disponible
-- Está implementado con `useState`
 
 ---
 
@@ -96,42 +107,8 @@ Contador de unidades que:
 
 ---
 
-## 🛒 Funcionalidades principales
+## ▶️ Instalación y uso
 
-- Listado y detalle de productos
-- Filtrado por categorías
-- Carrito de compras con Context
-- Control de stock
-- Checkout con generación de orden en Firestore
-- Navegación SPA sin recarga
-- Deploy en hosting gratuito
-
----
-
-=======
-E-commerce desarrollado como Single Page Application (SPA) utilizando React.
-
-## 🚀 Tecnologías utilizadas
-- React
-- React Router DOM
-- Context API
-- Firebase (Firestore)
-- Bootstrap
-
-## 🛍️ Funcionalidades
-- Listado dinámico de productos desde Firestore
-- Filtrado por categorías
-- Vista de detalle de producto
-- Carrito de compras con Context
-- Checkout con generación de órdenes en Firestore
-- Renderizado condicional (loader, carrito vacío, sin stock)
-
-## 🔥 Firebase
-- Colección `products` para productos
-- Colección `orders` para órdenes de compra
-
-## ▶️ Instalación
 ```bash
 npm install
 npm run dev
->>>>>>> 5972369 (proyecto final react coder)
